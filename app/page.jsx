@@ -4,8 +4,8 @@ import InfoBoxes from "@/components/InfoBoxes";
 import Link from "next/link";
 import React from "react";
 
-export default async function Home() {
-  await connectDB();
+export default function Home() {
+  // await connectDB();
   return (
     <>
       <Hero />
