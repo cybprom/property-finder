@@ -10,6 +10,7 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const profileImage = session?.user?.image;
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -147,7 +148,7 @@ export default function Navbar() {
                   </svg>
                 </button>
                 <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                  2333
+                  23
                   {/* <!-- Replace with the actual number of notifications --> */}
                 </span>
               </Link>
@@ -166,8 +167,10 @@ export default function Navbar() {
                     <span className="sr-only">Open user menu</span>
                     <Image
                       className="h-8 w-8 rounded-full"
-                      src={profileDefault}
+                      src={profileImage || profileDefault}
                       alt="profile default image"
+                      width={40}
+                      height={40}
                     />
                   </button>
                 </div>
@@ -188,6 +191,9 @@ export default function Navbar() {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-0"
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                      }}
                     >
                       Your Profile
                     </Link>
@@ -197,10 +203,17 @@ export default function Navbar() {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-2"
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                      }}
                     >
                       Saved Properties
                     </Link>
                     <button
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                        signOut();
+                      }}
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex="-1"
